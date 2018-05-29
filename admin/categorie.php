@@ -53,8 +53,13 @@ if (isset($_GET['action']) && $_GET['action'] == 'consulter'){
 $sql = $connect->Prepare("SELECT * FROM categorie");
 $sql->execute(array());
 $results = $sql->fetchAll();
-
-print_r($results);	
+	foreach ($results as $key => $value) {
+		echo '<table >';
+		echo '<input type="text" value="'.$value['name_categorie'].'">';
+		echo '<input type="submit" value="modifier"';
+		echo "</table>";
+	}
+	
 
 ?>
 
