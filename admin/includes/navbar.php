@@ -17,26 +17,25 @@
                 <li><a href="depot.php">Ajouter un depot</a></li>
               </ul>
           </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="categorie.php">Categorie
+                    <span class="caret"></span>
+            </a>
+              <ul class="dropdown-menu">
+                <li><a href="categorie.php?action=ajouter">Ajouter une categorie</a></li>
+                <li><a href="categorie.php?action=consulter">Consulter les categories</a></li>
+              </ul>
+
+          </li>
           <li><a href="consulte.php">Inventaire</a></li>
           <li><a href="BV1.php">BL</a></li>
           <li><a href="BV2.php">Historique</a></li>
 
         </ul>
-        <?php if (isset($_SESSION['username'])){ ?>
-            <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo $_SESSION['username']; ?>
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="profile.php">Prifile</a></li>
-          <li><a href="../logout.php">Log out</a></li>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
-      </li>
-
-    </ul>
-
-        
-        <?php  } ?>
       </div>
     </nav>  
 </div>

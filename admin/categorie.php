@@ -7,8 +7,9 @@ include 'includes/navbar.php';
 
 
 <?php
-if (isset($_GET['action']) && $_GET['action'] == 'ajouter')
-	?>
+if (isset($_GET['action']) && $_GET['action'] == 'ajouter'){
+	
+?>
 <form action="" method="POST">
 	<div class="col-md-3"></div>
 		<div class="col-md-6 col-xs-12" style="margin:100px auto">
@@ -32,15 +33,36 @@ if (isset($_GET['action']) && $_GET['action'] == 'ajouter')
 		</div>	
 
 </form>
+
+<?php 
+}
+?>
+
 <?php
 if (isset($_POST['submit'])) {
 	$categorie = $_POST['name_categorie'];
   
   $sql = $connect->Prepare("INSERT INTO categorie VALUES('','$categorie')");
   $sql->execute();
-
 }
+?>
 
+<?php
+if (isset($_GET['action']) && $_GET['action'] == 'consulter'){
+
+$sql = $connect->Prepare("SELECT * FROM categorie");
+$sql->execute(array());
+$results = $sql->fetchAll();
+
+print_r($results);	
+
+?>
+
+
+
+
+<?php 
+}
 ?>
 	
 
