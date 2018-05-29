@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	$page = 'Ajouter un produit';
+	$page = 'Aouter un produit';
 	include 'includes/head.php';
 	include 'includes/navbar.php';
 	include 'connect.php';

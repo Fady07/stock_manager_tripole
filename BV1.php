@@ -3,6 +3,7 @@
 	$page='B Livraison';
 	include 'includes/head.php';
 	include 'includes/navbar.php';
+	include_once("fonctions.php");
 
 
 
@@ -17,6 +18,7 @@ $count = $sql->rowCount();
 $results = $sql->fetchAll(PDO::FETCH_ASSOC);
 //print_r($results);
 if ($count == 1) {
+creationPanier();
 $id = $results[0]['id_product'];
 $cod = $results[0]['code_product'];
 $name = $results[0]['name_product'];
@@ -25,7 +27,7 @@ $pa = $results[0]['price_buy_product'];
 $pv = $results[0]['price_sell_product'];
 }else{$i = true; $error = 'Sorry! product not found!'; echo $error;}
 }
-if (isset($_POST['show1'])) {
+if (isset($_POST['Ajouter'])) {
 $code = $_POST['code_produit'];
 $qt1 = $_POST['amount'];
 $pv1 = $_POST['pv'];
@@ -45,10 +47,14 @@ $stmt = $connect->prepare($sql1);
 $stmt->execute();
 $p1 = (int)$qt1 * (int)$pv1;
 $date = date("Y/m/d");
+ajouterArticle($cod,$name,$qt1,$pv1,$p1);
+//print_r($_SESSION['panier']);
 $sql2 = "INSERT INTO BV VALUES ('', '$id', '$cod', '$name', '$qt1', '$pv1', '$p1', '$date' )";
 $sql3 = "INSERT INTO BVH VALUES ('', '$cod', '$name', '$qt1', '$pv1', '$p1', '$date' )";
 $connect->exec($sql2);
 $connect->exec($sql3);
+//ajouterArticle($cod,$name,$qt1,$pv1,$p1);
+//print_r($_SESSION['panier']);
 }	
 }
 if (isset($_POST['submit'])) {
@@ -56,8 +62,8 @@ if (isset($_POST['submit'])) {
 	
 	
 }
-
-
+//$_SESSION['panier'] = $tmp;
+//unset($tmp);
   ?>
 
 
@@ -100,6 +106,41 @@ if (isset($_POST['submit'])) {
 		<th>chiffre d'affaire </th>
 	</thead>
 	<tbody>
+		<?php if (isset($_SESSION['panier'])){
+			$ide = 0;
+			foreach ($_SESSION['panier']['CodeProduit'] as $key => $value) {
+			$ide = $ide + 1 ;
+		 ?>
+		<tr>
+		<td>
+			<label><?php echo($ide); ?></label>
+		</td>
+		<td>
+			<input type="text" name="code_produit" value="<?php echo $_SESSION['panier']['CodeProduit'][$key];?>">
+		</td>
+		<td>
+			<input type="text" name="name" value="<?php echo $_SESSION['panier']['NomProduit'][$key]; ?>">
+		</td>
+		<td>
+			<input type="text" name="amount" value="<?php echo $_SESSION['panier']['QuantiteProduit'][$key]; ?>">
+		</td>
+		<td>
+			<input type="text" name="pv" value="<?php echo $_SESSION['panier']['PrixProduit'][$key]; ?>">
+		</td>
+		<td>
+			<?php  echo $_SESSION['panier']['chiffreDaffaire'][$key]; ?>
+				
+		</td>
+		<td>
+			<input type="submit" name="Ajouter" value="MODIFIER">
+		</td>
+		
+	</tr>
+
+	<?php 	}} ?>
+
+
+		<tr>
 		<td>
 			<label><?php if($i==false){echo($id);} ?></label>
 		</td>
@@ -120,11 +161,13 @@ if (isset($_POST['submit'])) {
 				
 		</td>
 		<td>
-			<input type="submit" name="show1" value="Ajouter">
+			<input type="submit" name="Ajouter" value="Ajouter">
 		</td>
 		<td>
 			<input type="submit" name="submit" value="valider">
 		</td>
+		</tr>
+
             
     </tbody>
 
