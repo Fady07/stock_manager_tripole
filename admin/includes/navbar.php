@@ -23,8 +23,6 @@
             </a>
               <ul class="dropdown-menu">
                 <li><a href="categorie.php?action=ajouter">Ajouter une categorie</a></li>
-                <li><a href="categorie.php?action=modifier">Modifier une categorie</a></li>
-                <li><a href="categorie.php?action=supprimer">Supprimer une categorie</a></li>
                 <li><a href="categorie.php?action=consulter">Consulter les categories</a></li>
               </ul>
 
