@@ -45,6 +45,7 @@ if (isset($_POST['submit'])) {
   $sql = $connect->Prepare("INSERT INTO categorie VALUES('','$categorie')");
   $sql->execute();
 }
+<<<<<<< HEAD
 ?>
 
 <?php
@@ -102,7 +103,28 @@ $results = $sql->fetchAll();
      }
    }
 
+||||||| merged common ancestors
+=======
+?>
 
+<?php
+if (isset($_GET['action']) && $_GET['action'] == 'consulter'){
+
+$sql = $connect->Prepare("SELECT * FROM categorie");
+$sql->execute(array());
+$results = $sql->fetchAll();
+	foreach ($results as $key => $value) {
+		echo '<table >';
+		echo '<input type="text" value="'.$value['name_categorie'].'">';
+		echo '<input type="submit" value="modifier"';
+		echo "</table>";
+	}
+	
+
+?>
+>>>>>>> 34832f45c6970170da64d416f275aa712ca398cf
+
+<<<<<<< HEAD
   
     
    ?>
@@ -111,6 +133,14 @@ $results = $sql->fetchAll();
 
 <?php 
 }
+||||||| merged common ancestors
+=======
+
+
+
+<?php 
+}
+>>>>>>> 34832f45c6970170da64d416f275aa712ca398cf
 ?>
 
 
