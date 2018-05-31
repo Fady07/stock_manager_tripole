@@ -4,6 +4,7 @@
 	include 'includes/head.php';
 	include 'includes/navbar.php';
 	include 'connect.php';
+	
 	$sql = $connect->prepare('SELECT * FROM depot');
     $sql->execute();
     $results = $sql->fetchAll(PDO::FETCH_ASSOC);	

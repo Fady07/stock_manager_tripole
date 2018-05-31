@@ -52,39 +52,58 @@ if (isset($_GET['action']) && $_GET['action'] == 'consulter'){
 
 $sql = $connect->Prepare("SELECT * FROM categorie");
 $sql->execute(array());
+$row =$sql->rowCount();
 $results = $sql->fetchAll();
 
+
   ?>
+  <form method="POST">
+	<div class="col-lg-6">
   <?php
     foreach ($results as $key => $value) {
     	
   ?>  
-     <form method="POST">
-      <div class="col-md-12">
-  		<table>		
-		<input class="form-group" type="text" name="name_categorie" value="<?php echo $value['name_categorie'];?>">
-		<input class="btn btn-success" type="submit" name="modify" value="modifier">
-		<input class="btn btn-primary" type="submit" name="delete" value="supprimer">
-		</table>
+        <table>
+        <div class="col-sm-3" style="float: left;margin:10px">
+  		 		
+		<tr>
+			<input style="margin: 5px;" class="form-control" type="text" name="name_categorie" value="<?php echo $value['name_categorie'];?>">
+		<input style="margin: 5px;" class="btn btn-default" type="submit" name="<?php echo 'modify'.$value['id_categorie'];?>" value="modifier">
+		<input class="btn" type="submit" name="<?php echo 'delete'.$value['id_categorie'];?>" value="supprimer">
+		</tr>
+		
       </div>
+      <table>
      </form>
    <?php
+   //echo $value['id_categorie'];
     
-    if (isset($_POST['modify'])) {
+
+    if (isset($_POST['modify'.$value['id_categorie']])) {
 
      	
      $new_categorie = $_POST['name_categorie'];
-     echo $new_categorie;
+     //echo $new_categorie;
      $sql = $connect->Prepare('UPDATE categorie SET name_categorie=? WHERE name_categorie=?');
-     //$sql->execute(array($new_categorie,$value['name_categorie']));
+     $sql->execute(array($new_categorie,$value['name_categorie']));
+     header('location:categorie.php?action=consulter');
+
+     }
+
+     if (isset($_POST['delete'.$value['id_categorie']])) {
+
+     	
+     $deleted_categorie = $_POST['name_categorie'];
+     //echo $deleted_categorie;
+     $sql = $connect->Prepare("DELETE FROM categorie WHERE name_categorie=?");
+     $sql->execute(array($deleted_categorie));
+     header('location:categorie.php?action=consulter');
+     
+     }
+   }
 
 
-
-    }
-
-
-
-    }
+  
     
    ?>
 
@@ -93,4 +112,18 @@ $results = $sql->fetchAll();
 <?php 
 }
 ?>
+
+
+
+
+
+
+
+
+
+
+
 	
+<?php 
+include 'includes/head.php';
+?>
